@@ -1,0 +1,11 @@
+<h1>Lista de Pokémon</h1>
+
+<ul>
+{% for p in pokemones %}
+    <li>
+        <a href="/pokemon/{{p.id}}">
+            {{ p.nombre }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
