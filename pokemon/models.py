@@ -20,11 +20,11 @@ class Entrenador(models.Model):
 class Pokemon(models.Model):
 
     TIPOS = [
-        ('Agua', 'Agua'),
-        ('Fuego', 'Fuego'),
-        ('Planta', 'Planta'),
-        ('Eléctrico', 'Eléctrico'),
-        ('Tierra', 'Tierra'),
+        ('A', 'Agua'),
+        ('F', 'Fuego'),
+        ('P', 'Planta'),
+        ('E', 'Eléctrico'),
+        ('T', 'Tierra'),
     ]
 
     nombre = models.CharField(max_length=50)

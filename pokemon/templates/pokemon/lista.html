@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pokédex</title>
+    <title>Pokédex Pokémon</title>
 
     <style>
 
         body{
             background: linear-gradient(to right, #024b06, #0ab142);
-            font-family: Arial;
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -16,7 +16,7 @@
         h1{
             text-align: center;
             color: white;
-            padding: 20px;
+            padding: 25px;
         }
 
         .contenedor{
@@ -29,11 +29,11 @@
 
         .card{
             background: white;
-            width: 250px;
+            width: 260px;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
+            transition: 0.3s;
         }
 
         .card:hover{
@@ -52,30 +52,60 @@
 
         .info h2{
             margin: 0;
-            color: #333;
+            color: #222;
         }
 
         .info p{
             color: #555;
         }
 
+        .botones{
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .btn{
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background: #ffcb05;
-            color: black;
             text-decoration: none;
+            padding: 10px 15px;
             border-radius: 8px;
             font-weight: bold;
+            color: white;
+        }
+
+        .detalle{
+            background: #ffcb05;
+            color: black;
+        }
+
+        .editar{
+            background: #2196F3;
+        }
+
+        .eliminar{
+            background: #e53935;
+        }
+
+        .crear{
+            background: #111;
+            display: block;
+            width: fit-content;
+            margin: auto;
+            margin-bottom: 25px;
         }
 
     </style>
 
 </head>
+
 <body>
 
     <h1>Ϟ(๑⚈ ․̫ ⚈๑)⋆ Pokédex Pokémon Ϟ(๑⚈ ․̫ ⚈๑)⋆</h1>
+
+    <a href="{% url 'crear_pokemon' %}" class="btn crear">
+        + Agregar Pokémon
+    </a>
 
     <div class="contenedor">
 
@@ -91,9 +121,26 @@
 
                 <p><strong>Tipo:</strong> {{ pokemon.tipo }}</p>
 
-                <a href="{% url 'detalle_pokemon' pokemon.id %}" class="btn">
-                    Ver detalle
-                </a>
+                <p><strong>Entrenador:</strong>
+                    {{ pokemon.entrenador.nombre }}
+                    {{ pokemon.entrenador.apellido }}
+                </p>
+
+                <div class="botones">
+
+                    <a href="{% url 'detalle_pokemon' pokemon.id %}" class="btn detalle">
+                        Ver detalle
+                    </a>
+
+                    <a href="{% url 'editar_pokemon' pokemon.id %}" class="btn editar">
+                        Editar
+                    </a>
+
+                    <a href="{% url 'eliminar_pokemon' pokemon.id %}" class="btn eliminar">
+                        Eliminar
+                    </a>
+
+                </div>
 
             </div>
 
@@ -102,7 +149,13 @@
         {% endfor %}
 
     </div>
-    <h1>(ง •̀_•́)ง ⚔️ Entrenadores Pokémon (ง •̀_•́)ง ⚔️</h1>
+
+
+    <h1>(ง •̀_•́)ง ⚔️ Entrenadores Pokémon ⚔️</h1>
+
+    <a href="{% url 'crear_entrenador' %}" class="btn crear">
+        + Agregar Entrenador
+    </a>
 
     <div class="contenedor">
 
@@ -115,16 +168,30 @@
             <div class="info">
 
                 <h2>
-                    <a href="{% url 'detalle_entrenador' entrenador.id %}">
-                        {{ entrenador.nombre }}
-                        {{ entrenador.apellido }}
-                    </a>
+                    {{ entrenador.nombre }}
+                    {{ entrenador.apellido }}
                 </h2>
 
                 <p>
                     <strong>Ciudad:</strong>
                     {{ entrenador.ciudad }}
                 </p>
+
+                <div class="botones">
+
+                    <a href="{% url 'detalle_entrenador' entrenador.id %}" class="btn detalle">
+                        Ver detalle
+                    </a>
+
+                    <a href="{% url 'editar_entrenador' entrenador.id %}" class="btn editar">
+                        Editar
+                    </a>
+
+                    <a href="{% url 'eliminar_entrenador' entrenador.id %}" class="btn eliminar">
+                        Eliminar
+                    </a>
+
+                </div>
 
             </div>
 
