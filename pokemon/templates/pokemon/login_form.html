@@ -1,0 +1,49 @@
+{% extends "pokemon/base.html" %}
+
+{% block title %}
+Ingreso al sistema
+{% endblock title %}
+
+{% block content %}
+
+<h1>Ingreso al sistema</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+
+            <div>
+                <label>Usuario</label>
+                <input type="text"
+                name="username"
+                class="form-control">
+            </div>
+
+            <div>
+                <label>Contraseña</label>
+                <input type="password"
+                name="password"
+                class="form-control">
+            </div>
+
+            <br>
+
+            <button
+            type="submit"
+            class="btn btn-primary">
+            Ingresar
+            </button>
+
+            <a href="{% url 'pokedex:lista_pokemon' %}"
+            class="btn btn-secondary">
+            Volver
+            </a>
+
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

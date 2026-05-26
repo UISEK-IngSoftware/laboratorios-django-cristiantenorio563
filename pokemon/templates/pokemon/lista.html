@@ -1,205 +1,272 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Pokédex Pokémon</title>
+{% extends "pokemon/base.html" %}
 
-    <style>
+{% block title %}
+Pokedex
+{% endblock %}
 
-        body{
-            background: linear-gradient(to right, #024b06, #0ab142);
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+{% block content %}
 
-        h1{
-            text-align: center;
-            color: white;
-            padding: 25px;
-        }
+<style>
 
-        .contenedor{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            padding: 20px;
-        }
+body{
+    background:linear-gradient(
+    to right,
+    #024b06,
+    #0ab142
+    );
+}
 
-        .card{
-            background: white;
-            width: 260px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
+h1{
+    text-align:center;
+    color:white;
+    padding:25px;
+}
 
-        .card:hover{
-            transform: scale(1.05);
-        }
+.contenedor{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+    padding:20px;
+}
 
-        .card img{
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
+.card{
+    background:white;
+    width:260px;
+    border-radius:15px;
+    overflow:hidden;
 
-        .info{
-            padding: 15px;
-        }
+    box-shadow:
+    0px 5px 15px rgba(
+    0,
+    0,
+    0,
+    0.3
+    );
+}
 
-        .info h2{
-            margin: 0;
-            color: #222;
-        }
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
 
-        .info p{
-            color: #555;
-        }
+.info{
+    padding:15px;
+}
 
-        .botones{
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+.botones{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
 
-        .btn{
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            color: white;
-        }
+.btn{
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+}
 
-        .detalle{
-            background: #ffcb05;
-            color: black;
-        }
+.detalle{
+    background:#ffcb05;
+    color:black;
+}
 
-        .editar{
-            background: #2196F3;
-        }
+.editar{
+    background:#2196F3;
+}
 
-        .eliminar{
-            background: #e53935;
-        }
+.eliminar{
+    background:#e53935;
+}
 
-        .crear{
-            background: #111;
-            display: block;
-            width: fit-content;
-            margin: auto;
-            margin-bottom: 25px;
-        }
+.crear{
+    background:black;
+    display:block;
+    width:fit-content;
+    margin:auto;
+    margin-bottom:20px;
+}
 
-    </style>
-
-</head>
-
-<body>
-
-    <h1>Ϟ(๑⚈ ․̫ ⚈๑)⋆ Pokédex Pokémon Ϟ(๑⚈ ․̫ ⚈๑)⋆</h1>
-
-    <a href="{% url 'crear_pokemon' %}" class="btn crear">
-        + Agregar Pokémon
-    </a>
-
-    <div class="contenedor">
-
-        {% for pokemon in pokemones %}
-
-        <div class="card">
-
-            <img src="{{ pokemon.imagen }}" alt="{{ pokemon.nombre }}">
-
-            <div class="info">
-
-                <h2>{{ pokemon.nombre }}</h2>
-
-                <p><strong>Tipo:</strong> {{ pokemon.tipo }}</p>
-
-                <p><strong>Entrenador:</strong>
-                    {{ pokemon.entrenador.nombre }}
-                    {{ pokemon.entrenador.apellido }}
-                </p>
-
-                <div class="botones">
-
-                    <a href="{% url 'detalle_pokemon' pokemon.id %}" class="btn detalle">
-                        Ver detalle
-                    </a>
-
-                    <a href="{% url 'editar_pokemon' pokemon.id %}" class="btn editar">
-                        Editar
-                    </a>
-
-                    <a href="{% url 'eliminar_pokemon' pokemon.id %}" class="btn eliminar">
-                        Eliminar
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
+</style>
 
 
-    <h1>(ง •̀_•́)ง ⚔️ Entrenadores Pokémon ⚔️</h1>
 
-    <a href="{% url 'crear_entrenador' %}" class="btn crear">
-        + Agregar Entrenador
-    </a>
+<h1>
+Ϟ(๑⚈ ․̫ ⚈๑)⋆ Pokédex Pokémon Ϟ(๑⚈ ․̫ ⚈๑)⋆
+</h1>
 
-    <div class="contenedor">
 
-        {% for entrenador in entrenadores %}
+{% if user.is_authenticated %}
+<a
+href="{% url 'pokedex:crear_pokemon' %}"
+class="btn crear">
 
-        <div class="card">
++ Agregar Pokémon
 
-            <img src="{{ entrenador.imagen }}" alt="{{ entrenador.nombre }}">
+</a>
+{% endif %}
 
-            <div class="info">
 
-                <h2>
-                    {{ entrenador.nombre }}
-                    {{ entrenador.apellido }}
-                </h2>
+<div class="contenedor">
 
-                <p>
-                    <strong>Ciudad:</strong>
-                    {{ entrenador.ciudad }}
-                </p>
+{% for pokemon in pokemones %}
 
-                <div class="botones">
+<div class="card">
 
-                    <a href="{% url 'detalle_entrenador' entrenador.id %}" class="btn detalle">
-                        Ver detalle
-                    </a>
+<img
+src="{{ pokemon.imagen }}"
+alt="{{ pokemon.nombre }}">
 
-                    <a href="{% url 'editar_entrenador' entrenador.id %}" class="btn editar">
-                        Editar
-                    </a>
+<div class="info">
 
-                    <a href="{% url 'eliminar_entrenador' entrenador.id %}" class="btn eliminar">
-                        Eliminar
-                    </a>
+<h2>
+{{ pokemon.nombre }}
+</h2>
 
-                </div>
+<p>
+<strong>Tipo:</strong>
+{{ pokemon.tipo }}
+</p>
 
-            </div>
+<p>
+<strong>Entrenador:</strong>
 
-        </div>
+{{ pokemon.entrenador.nombre }}
+{{ pokemon.entrenador.apellido }}
 
-        {% endfor %}
+</p>
 
-    </div>
 
-</body>
-</html>
+<div class="botones">
+
+<a
+href="{% url 'pokedex:detalle_pokemon' pokemon.id %}"
+class="btn detalle">
+
+Ver detalle
+
+</a>
+
+
+{% if user.is_authenticated %}
+
+<a
+href="{% url 'pokedex:editar_pokemon' pokemon.id %}"
+class="btn editar">
+
+Editar
+
+</a>
+
+
+<a
+href="{% url 'pokedex:eliminar_pokemon' pokemon.id %}"
+class="btn eliminar">
+
+Eliminar
+
+</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+<h1>
+Entrenadores Pokémon
+</h1>
+
+
+{% if user.is_authenticated %}
+<a
+href="{% url 'pokedex:crear_entrenador' %}"
+class="btn crear">
+
++ Agregar Entrenador
+
+</a>
+{% endif %}
+
+
+<div class="contenedor">
+
+{% for entrenador in entrenadores %}
+
+<div class="card">
+
+<img
+src="{{ entrenador.imagen }}"
+alt="{{ entrenador.nombre }}">
+
+<div class="info">
+
+<h2>
+
+{{ entrenador.nombre }}
+{{ entrenador.apellido }}
+
+</h2>
+
+<p>
+
+<strong>Ciudad:</strong>
+
+{{ entrenador.ciudad }}
+
+</p>
+
+<div class="botones">
+
+<a
+href="{% url 'pokedex:detalle_entrenador' entrenador.id %}"
+class="btn detalle">
+
+Ver detalle
+
+</a>
+
+
+{% if user.is_authenticated %}
+
+<a
+href="{% url 'pokedex:editar_entrenador' entrenador.id %}"
+class="btn editar">
+
+Editar
+
+</a>
+
+
+<a
+href="{% url 'pokedex:eliminar_entrenador' entrenador.id %}"
+class="btn eliminar">
+
+Eliminar
+
+</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LogoutView
+
+app_name = "pokedex"
 
 urlpatterns = [
 
@@ -55,5 +58,16 @@ urlpatterns = [
         'entrenador/<int:id>/',
         views.detalle_entrenador,
         name='detalle_entrenador'
+    ),
+    path(
+        "login/", views.CustomLoginView.as_view(),name="login"
+    ),
+
+    path(
+    "logout/",
+    LogoutView.as_view(
+        next_page="pokedex:lista_pokemon"
+    ),
+    name="logout"
     ),
 ]
