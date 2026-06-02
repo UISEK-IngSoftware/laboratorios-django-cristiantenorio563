@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pokedex',
     'pokemon',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [

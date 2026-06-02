@@ -11,4 +11,8 @@ urlpatterns = [
         '',
         include(('pokemon.urls', 'pokedex'), namespace='pokedex')
     ),
+
+    path(
+        'api/', include('api.urls')
+    ),
 ]
