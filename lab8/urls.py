@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from oauth2_provider import urls as oauth2_urls
 
 urlpatterns = [
     path(
@@ -14,5 +15,9 @@ urlpatterns = [
 
     path(
         'api/', include('api.urls')
+    ),
+
+    path(
+        'o/', include(oauth2_urls)
     ),
 ]
