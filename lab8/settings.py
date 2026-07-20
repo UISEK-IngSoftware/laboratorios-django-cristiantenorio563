@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pokedex',
     'pokemon',
     'rest_framework',
     'api',
@@ -135,8 +134,11 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 OAUTH2_PROVIDER = {
-    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 2592000,
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 2592000,
+    "SCOPES": {
+        "read": "Read scope",
+        "write": "Write scope",
+    },
 }
 
 AUTHENTICATION_BACKENDS = (

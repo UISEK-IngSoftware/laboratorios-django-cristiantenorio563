@@ -1,7 +1,6 @@
 from django import forms
 from .models import Pokemon, Entrenador
 
-
 class PokemonForm(forms.ModelForm):
 
     class Meta:

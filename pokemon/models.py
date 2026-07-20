@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Entrenador(models.Model):
 
     nombre = models.CharField(max_length=50)
